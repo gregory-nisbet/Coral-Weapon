@@ -6,7 +6,7 @@
 ## Team
 
   - __Product Owner__: Steve Sharp
-  - __Scrum Master__: Greg Nesbitt
+  - __Scrum Master__: Greg Nisbet
   - __Development Team Members__: Johnny Liang, Satoko Lom
 
 ## Table of Contents
@@ -51,3 +51,7 @@ View the project roadmap [here](LINK_TO_PROJECT_ISSUES)
 ## Contributing
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for contribution guidelines.
+
+## Workflow
+
+![workflow diagram](http://i.imgur.com/p0e4tQK.png)
