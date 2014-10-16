@@ -6,7 +6,7 @@
 ## Team
 
   - __Product Owner__: Steve Sharp
-  - __Scrum Master__: Greg Nesbitt
+  - __Scrum Master__: Greg Nisbet
   - __Development Team Members__: Johnny Liang, Satoko Lom
 
 ## Table of Contents
