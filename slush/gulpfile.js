@@ -108,7 +108,7 @@ function index () {
   var opt = {read: false};
   return gulp.src('./client/app/index.html')
     .pipe(g.inject(gulp.src(bowerFiles(), opt), {ignorePath: 'bower_components', starttag: '<!-- inject:vendor:{{ext}} -->'}))
-    .pipe(g.inject(es.merge(appFiles(), cssFiles(opt)), {ignorePath: ['.tmp', 'src/app']}))
+    .pipe(g.inject(es.merge(appFiles(), cssFiles(opt)), {addRootSlash:false, ignorePath: ['.tmp', 'client/app']}))
     .pipe(gulp.dest('./client/app/'))
     .pipe(g.embedlr())
     .pipe(gulp.dest('./.tmp/'))
@@ -139,7 +139,7 @@ gulp.task('dist', ['vendors', 'assets', 'styles-dist', 'scripts-dist'], function
  */
 gulp.task('statics', g.serve({
   port: 3000,
-  root: ['./.tmp', './.tmp/src/app', './src/app', './bower_components']
+  root: ['./.tmp', './.tmp/client/app', './client/app', './bower_components']
   
 }));
 
@@ -157,7 +157,9 @@ gulp.task('deploy', g.serve({
 /**
  * Watch
  */
-gulp.task('serve', ['watch']);
+gulp.task('serve', ['watch'], function(){
+  require('./server')
+});
 gulp.task('watch', ['statics', 'default'], function () {
   isWatching = true;
   // Initiate livereload server:
@@ -226,7 +228,7 @@ function testFiles() {
     .queue(gulp.src(fileTypeFilter(bowerFiles(), 'js')))
     .queue(gulp.src('./bower_components/angular-mocks/angular-mocks.js'))
     .queue(appFiles())
-    .queue(gulp.src(['./client/app/**/*_test.js', './.tmp/src/app/**/*_test.js']))
+    .queue(gulp.src(['./client/app/**/*_test.js', './.tmp/client/app/**/*_test.js']))
     .done();
 }
 
@@ -243,8 +245,8 @@ function cssFiles (opt) {
 function appFiles () {
   var files = [
     './.tmp/' + bower.name + '-templates.js',
-    './.tmp/src/app/**/*.js',
-    '!./.tmp/src/app/**/*_test.js',
+    './.tmp/client/app/**/*.js',
+    '!./.tmp/client/app/**/*_test.js',
     './client/app/**/*.js',
     '!./client/app/**/*_test.js'
   ];
@@ -268,7 +270,7 @@ function buildTemplates () {
     .pipe(g.ngHtml2js, {
       moduleName: bower.name,
       prefix: '/' + bower.name + '/',
-      stripPrefix: '/src/app'
+      stripPrefix: '/client/app'
     })
     .pipe(g.concat, bower.name + '-templates.js')
     .pipe(gulp.dest, './.tmp')
