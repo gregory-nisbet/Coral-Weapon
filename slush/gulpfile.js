@@ -140,18 +140,33 @@ gulp.task('dist', ['vendors', 'assets', 'styles-dist', 'scripts-dist'], function
 gulp.task('statics', g.serve({
   port: 3000,
   root: ['./.tmp', './.tmp/client/app', './client/app', './bower_components']
-  
 }));
 
 
 /**
  * Static file server
  */
-gulp.task('deploy', g.serve({
+gulp.task('deploy:server', g.serve({
   port: 3000,
-  root: ['./dist']
-  
+  root: ['./dist']  
+
 }));
+
+//=======================================================================
+gulp.task('deploy',['dist'], function () {
+  return gulp.src("../review/**/*")
+    .pipe(gulp.dest('../deployed'))
+});
+//=======================================================================
+
+//=======================================================================
+gulp.task('review',['dist'], function () {
+  return gulp.src("dist/**/*")
+    .pipe(gulp.dest('../review'))
+});
+//=======================================================================
+
+
 
 
 /**
@@ -219,6 +234,7 @@ gulp.task('karma-conf', ['templates'], function () {
     }))
     .pipe(gulp.dest('./'));
 });
+
 
 /**
  * Test files
