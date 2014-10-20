@@ -15,6 +15,7 @@ var elevator;
 var map;
 var chart;
 var polyline;
+var currentPosition;
 
 // Load the Visualization API and the columnchart package.
 google.load('visualization', '1', {packages: ['columnchart']});
@@ -29,16 +30,15 @@ function initialize() {
   // Try HTML5 geolocation
   if(navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(function(position) {
-      var pos = new google.maps.LatLng(position.coords.latitude,
+      currentPosition = new google.maps.LatLng(position.coords.latitude,
                                        position.coords.longitude);
 
       var infowindow = new google.maps.InfoWindow({
         map: map,
-        position: pos,
-        content: 'Location found using HTML5.'
+        position: currentPosition
       });
 
-      map.setCenter(pos);
+      map.setCenter(currentPosition);
       directionsDisplay.setMap(map);
       directionsDisplay.setPanel(document.getElementById('directionsPanel'));
 
@@ -146,7 +146,7 @@ function handleNoGeolocation(errorFlag) {
 function calcRoute() {
 
   var request = {
-    origin: '944 Market Street, San Francisco, CA',
+    origin: currentPosition,
     destination: '860 Market Street, San Francisco, CA',
     //waypoints:[{location: 'Bourke, NSW'}, {location: 'Broken Hill, NSW'}],
     travelMode: google.maps.TravelMode.WALKING
