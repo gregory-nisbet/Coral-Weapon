@@ -3,14 +3,6 @@ var rendererOptions = {
 };
 var directionsDisplay = new google.maps.DirectionsRenderer(rendererOptions);;
 var directionsService = new google.maps.DirectionsService();
-// Note: This example requires that you consent to location sharing when
-// prompted by your browser. If you see a blank space instead of the map, this
-// is probably because you have denied permission for location sharing.
-var rendererOptions = {
-  draggable: true
-};
-var directionsDisplay = new google.maps.DirectionsRenderer(rendererOptions);;
-var directionsService = new google.maps.DirectionsService();
 var elevator;
 var map;
 var chart;
@@ -23,6 +15,22 @@ var currentLongitude = -122.409093;
 // Load the Visualization API and the columnchart package.
 google.load('visualization', '1', {packages: ['columnchart']});
 
+var setupMap = function(){
+  currentPosition = new google.maps.LatLng( currentLatitude, currentLongitude );
+  var infowindow = new google.maps.InfoWindow({
+    map: map,
+    position: currentPosition,
+  });
+  map.setCenter(currentPosition);
+  directionsDisplay.setMap(map);
+  directionsDisplay.setPanel(document.getElementById('directionsPanel'));
+
+  google.maps.event.addListener(directionsDisplay, 'directions_changed', function() {
+    console.log(directionsDisplay.getDirections());
+    computeTotalDistance(directionsDisplay.getDirections());
+  });
+};
+
 function initialize() {
   var mapOptions = {
     zoom: 15
@@ -30,28 +38,11 @@ function initialize() {
   map = new google.maps.Map(document.getElementById('map-canvas'),
       mapOptions);
 
-  // Try HTML5 geolocation
   if(navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(function(position) {
       currentLatitude = position.coords.latitude;
       currentLongitude = position.coords.longitude;
-      currentPosition = new google.maps.LatLng(position.coords.latitude,
-                                       position.coords.longitude);
-
-      var infowindow = new google.maps.InfoWindow({
-        map: map,
-        position: currentPosition
-      });
-
-      map.setCenter(currentPosition);
-      directionsDisplay.setMap(map);
-      directionsDisplay.setPanel(document.getElementById('directionsPanel'));
-
-      google.maps.event.addListener(directionsDisplay, 'directions_changed', function() {
-        console.log(directionsDisplay.getDirections());
-        computeTotalDistance(directionsDisplay.getDirections());
-
-      });
+      setupMap();
 
       // Create an ElevationService.
       //elevator = new google.maps.ElevationService();
@@ -60,11 +51,14 @@ function initialize() {
 
       calcRoute();
     }, function() {
-      handleNoGeolocation(true);
+      //if getting geolocation info failed.
+      handleNoGeolocation();
     });
-  } else {
+
+  }else{
     // Browser doesn't support Geolocation
-    handleNoGeolocation(false);
+    setupMap();
+    calcRoute();
   }
 }
 
@@ -131,13 +125,9 @@ function plotElevation(results, status) {
   });
 }
 
-function handleNoGeolocation(errorFlag) {
-  if (errorFlag) {
-    var content = 'Error: The Geolocation service failed.';
-  } else {
-    var content = 'Error: Your browser doesn\'t support geolocation.';
-  }
-
+function handleNoGeolocation() {
+  var content = 'Error: The Geolocation service failed.';
+  
   var options = {
     map: map,
     position: new google.maps.LatLng(60, 105),
