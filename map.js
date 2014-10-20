@@ -16,6 +16,9 @@ var map;
 var chart;
 var polyline;
 var currentPosition;
+//assign defalut position
+var currentLatitude = 37.783478;
+var currentLongitude = -122.409093;
 
 // Load the Visualization API and the columnchart package.
 google.load('visualization', '1', {packages: ['columnchart']});
@@ -30,6 +33,8 @@ function initialize() {
   // Try HTML5 geolocation
   if(navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(function(position) {
+      currentLatitude = position.coords.latitude;
+      currentLongitude = position.coords.longitude;
       currentPosition = new google.maps.LatLng(position.coords.latitude,
                                        position.coords.longitude);
 
@@ -147,7 +152,7 @@ function calcRoute() {
 
   var request = {
     origin: currentPosition,
-    destination: '860 Market Street, San Francisco, CA',
+    destination: new google.maps.LatLng(currentLatitude, currentLongitude + 0.02),
     //waypoints:[{location: 'Bourke, NSW'}, {location: 'Broken Hill, NSW'}],
     travelMode: google.maps.TravelMode.WALKING
   };
