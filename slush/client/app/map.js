@@ -12,6 +12,7 @@ var currentPosition;
 var currentLatitude = 37.783478;
 var currentLongitude = -122.409093;
 var path;
+var content;
 
 // Load the Visualization API and the columnchart package.
 google.load('visualization', '1', {packages: ['columnchart']});
@@ -58,13 +59,14 @@ var initialize = function() {
       setupMap();
     }, function() {
       //if getting geolocation info failed.
-      var content = 'Error: The Geolocation service failed.';
+      content = 'Error: The Geolocation service failed.';
       setupMap(content);
     });
 
   }else{
     // Browser doesn't support Geolocation
-    setupMap();
+    content = 'Error: Your browser doesn\'t support geolocation.';
+    setupMap(content);
   }
 };
 
