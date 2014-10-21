@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>mongoDB AJAX demo</title>
+  <script type='text/javascript' src='http://code.jquery.com/jquery-1.9.1.js'></script>
+  <script type='text/javascript'>//<![CDATA[
+  var test = function(){
+    $.ajax({
+      url: 'http://localhost:28017/test/demo-collection',
+      type: 'get',
+      dataType: 'jsonp',
+      jsonp: 'jsonp', // mongod is expecting the parameter name to be called "jsonp"
+      success: function (data) {
+        console.log('success', data);
+      },
+      error: function (XMLHttpRequest, textStatus, errorThrown) {
+        console.log('error', errorThrown);
+      }
+    });
+  };
+  //]]>
+  </script>
+</head>
+<body>
+</body>
+</html>
