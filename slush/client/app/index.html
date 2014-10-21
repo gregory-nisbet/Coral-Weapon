@@ -1,28 +1,22 @@
 <!DOCTYPE html>
-<html ng-app="y">
+<html>
   <head>
-    <meta charset="utf-8"/>
-    <title>y</title>
-    <!-- inject:vendor:css -->
-    <!-- endinject -->
-    <!-- inject:css -->
-    <link rel="stylesheet" href="css/app.css">
-    <link rel="stylesheet" href="css/todo/todo.css">
-    <!-- endinject -->
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <title>Coral Weapon</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <script src="https://www.google.com/jsapi"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAAaL8lVGF97jWDNHRyLex7RFOQJAWoGUA"></script>
+    <!-- <script src="https://www.googleapis.com/geolocation/v1/geolocate?v=3.exp"></script> -->
   </head>
   <body>
-    <h1>y</h1>
-    <h2>Your new AngularJS app is now ready...</h2>
-    <ng-view></ng-view>
-    <!-- inject:vendor:js -->
-    <script src="/angular/angular.js"></script>
-    <script src="/angular-route/angular-route.js"></script>
-    <!-- endinject -->
-    <!-- inject:js -->
-    <script src="todo/todo.js"></script>
-    <script src="todo/todo-controller.js"></script>
-    <script src="app.js"></script>
-    <script src="y-templates.js"></script>
-    <!-- endinject -->
+    <div>Select your start and end positions.</div>
+    <div id="map-canvas"></div>
+    <div id="directionsPanel">
+      <p>Total Distance: <span id="total"></span></p>
+    <div id="elevation_chart"></div>
+    </div>
+
+    <script src="map.js"></script>
   </body>
 </html>
