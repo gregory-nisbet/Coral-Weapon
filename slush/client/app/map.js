@@ -41,8 +41,10 @@ var setupMap = function(content){
   google.maps.event.addListener(directionsDisplay, 'directions_changed', function() {
     var res = directionsDisplay.getDirections();
     computeTotalDistance(res);
+    drawChart(res);
     path = res.routes[0].overview_path;
   });
+  elevator = new google.maps.ElevationService();
   calcRoute();
 };
 
@@ -134,9 +136,30 @@ var calcRoute = function() {
   directionsService.route(request, function(response, status) {
     if (status == google.maps.DirectionsStatus.OK) {
       directionsDisplay.setDirections(response);
+      drawChart(response);
     }
   });
 };
+
+function drawChart(response) {
+
+  // Create a new chart in the elevation_chart DIV.
+  chart = new google.visualization.ColumnChart(document.getElementById('elevation_chart'));
+
+  //console.log(response);
+
+  var path = response.routes[0].overview_path;
+
+  // Create a PathElevationRequest object using this array.
+  // Ask for 256 samples along that path.
+  var pathRequest = {
+    'path': path,
+    'samples': 256
+  }
+
+  // Initiate the path request.
+  elevator.getElevationAlongPath(pathRequest, plotElevation);
+}
 
 var computeTotalDistance = function(result) {
   var total = 0;
