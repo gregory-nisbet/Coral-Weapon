@@ -66,3 +66,10 @@ bower install
 gulp build-all
 gulp deploy:server
 ```
+
+You may need to copy files from review to dist. gulp deploy:server will serve from the dist folder, which contains
+minified versions of code inside review.
+
+```sh
+gulp deploy
+```
