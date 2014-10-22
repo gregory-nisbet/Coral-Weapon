@@ -58,9 +58,11 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for contribution guidelines.
 
 ## Build Instructions
 
-from the Coral-Weapons directory, do the following
+From the Coral-Weapons directory, do the following
 
-```npm install
+```sh
+npm install
 bower install
 gulp build-all
-gulp deploy:server```
+gulp deploy:server
+```
