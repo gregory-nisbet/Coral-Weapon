@@ -1,17 +1,46 @@
 html, body, #map-canvas {
   height: 100%;
   margin: 0px;
-  padding: 0px
+  padding: 0px;
 }
 
 #map-canvas{
-	float:left;
-	width:70%; 
-	height:100%
+  float:left;
+  width:70%; 
+  height:100%;
 }
 
 #directionsPanel{
-	float:right;
-	width:30%;
-	height: 100%
+  float:right;
+  width:30%;
+  height: 100%;
+}
+
+#title {
+  color: black;
+  font-size: 40px;
+}
+
+#team {
+  color: black;
+  padding-top: 5px;
+  font-size: 20px;
+}
+
+#sign-in{
+  padding-top: 7px;
+}
+
+.text-center{
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+
+.btn-1 {
+  margin-right: 15px;
+}
+
+.btn-2 {
+  margin-left: 15px; 
 }
