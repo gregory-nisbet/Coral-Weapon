@@ -22,7 +22,6 @@ var savePath = function(){
 };
 
 var setupMap = function(content){
-  console.log("Begin setupMap");
   currentPosition = new google.maps.LatLng( currentLatitude, currentLongitude );
 
   var options = {
@@ -32,8 +31,8 @@ var setupMap = function(content){
 
   if (content != undefined){
     options.content = content;
+    var infowindow = new google.maps.InfoWindow(options);
   }
-  var infowindow = new google.maps.InfoWindow(options);
 
   map.setCenter(currentPosition);
   directionsDisplay.setMap(map);
@@ -45,7 +44,6 @@ var setupMap = function(content){
     path = res.routes[0].overview_path;
   });
   calcRoute();
-  console.log("End setupMap");
 };
 
 var initialize = function() {
@@ -134,11 +132,9 @@ var calcRoute = function() {
     travelMode: google.maps.TravelMode.WALKING
   };
   directionsService.route(request, function(response, status) {
-    //console.log('response', response);
     if (status == google.maps.DirectionsStatus.OK) {
       directionsDisplay.setDirections(response);
     }
-    //console.log("End calcRoute-if");
   });
 };
 
