@@ -55,3 +55,12 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for contribution guidelines.
 ## Workflow
 
 ![workflow diagram](http://i.imgur.com/p0e4tQK.png)
+
+## Build Instructions
+
+from the Coral-Weapons directory, do the following
+
+```npm install
+bower install
+gulp build-all
+gulp deploy:server```
