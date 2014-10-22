@@ -48,7 +48,7 @@ var setupMap = function(content){
   calcRoute();
 };
 
-var culcDifficulty = function(elevations){
+var calcDifficulty = function(elevations){
   var difficulty = 0;
   for(var i = 0; i < elevations.length - 1; i++){
     //calculate the elevation change
