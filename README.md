@@ -58,7 +58,7 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for contribution guidelines.
 
 ## Build Instructions
 
-From the Coral-Weapons directory, do the following
+From the Coral-Weapon directory, do the following
 
 ```sh
 npm install
