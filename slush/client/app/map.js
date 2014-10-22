@@ -145,7 +145,7 @@ var plotElevation = function(results, status) {
   });
   
   //culculate the dificulty
-  culcDifficulty(elevations);
+  calcDifficulty(elevations);
 };
 
 
