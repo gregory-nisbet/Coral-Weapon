@@ -41,11 +41,32 @@ var setupMap = function(content){
   google.maps.event.addListener(directionsDisplay, 'directions_changed', function() {
     var res = directionsDisplay.getDirections();
     computeTotalDistance(res);
-    drawChart(res);
     path = res.routes[0].overview_path;
+    drawChart(res);
   });
   elevator = new google.maps.ElevationService();
   calcRoute();
+};
+
+var calcDifficulty = function(elevations){
+  var difficulty = 0;
+  for(var i = 0; i < elevations.length - 1; i++){
+    //calculate the elevation change
+    var ele = elevations[i+1].elevation - elevations[i].elevation;
+    // calculate the distance
+    var disB = elevations[i+1].location.B - elevations[i].location.B;
+    var disK = elevations[i+1].location.k - elevations[i].location.k;
+    if(disB < 0){ disB *= -1; }
+    if(disK < 0){ disK *= -1; }
+    var dis = Math.sqrt( Math.pow( disB, 2 ) + Math.pow( disK, 2 ) );
+    //devide elevation by distance (if it is a uphill, maltiple by 2)
+    var dif = ele/dis;
+    dif = (dif > 0) ? dif * 2 : dif * -1;
+    difficulty += dif; 
+  };
+  difficulty =Math.round(difficulty / 1000) / 100;
+  
+  $('.difficulty').html('level ' + difficulty);
 };
 
 var initialize = function() {
@@ -122,6 +143,9 @@ var plotElevation = function(results, status) {
     legend: 'none',
     titleY: 'Elevation (m)'
   });
+  
+  //culculate the dificulty
+  calcDifficulty(elevations);
 };
 
 
