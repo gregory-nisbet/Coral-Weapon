@@ -132,11 +132,9 @@ var calcRoute = function() {
     travelMode: google.maps.TravelMode.WALKING
   };
   directionsService.route(request, function(response, status) {
-    //console.log('response', response);
     if (status == google.maps.DirectionsStatus.OK) {
       directionsDisplay.setDirections(response);
     }
-    //console.log("End calcRoute-if");
   });
 };
 
