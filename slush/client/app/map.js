@@ -36,7 +36,7 @@ var setupMap = function(content){
 
   map.setCenter(currentPosition);
   directionsDisplay.setMap(map);
-  directionsDisplay.setPanel(document.getElementById('directionsPanel'));
+  //directionsDisplay.setPanel(document.getElementById('directionsPanel'));
 
   google.maps.event.addListener(directionsDisplay, 'directions_changed', function() {
     var res = directionsDisplay.getDirections();
@@ -62,10 +62,10 @@ var calcDifficulty = function(elevations){
     //devide elevation by distance (if it is a uphill, maltiple by 2)
     var dif = ele/dis;
     dif = (dif > 0) ? dif * 2 : dif * -1;
-    difficulty += dif; 
+    difficulty += dif;
   };
   difficulty =Math.round(difficulty / 1000) / 100;
-  
+
   $('.difficulty').html('level ' + difficulty);
 };
 
@@ -90,25 +90,6 @@ var initialize = function() {
     setupMap(content);
   }
 };
-
-// var updateElevator = function() {
-//
-//   // Create a new chart in the elevation_chart DIV.
-//   chart = new google.visualization.ColumnChart(document.getElementById('elevation_chart'));
-//
-//   // Change line of code below to get path from request
-//   //var path = [ whitney, lonepine, owenslake, panamintsprings, beattyjunction, badwater];
-//
-//
-//   // Create a PathElevationRequest object using this array.
-//   // var pathRequest = {
-//   //   'path': path,
-//   //   'samples': 100
-//   // }
-//
-//   // Initiate the path request.
-//   //elevator.getElevationAlongPath(pathRequest, plotElevation);
-// };
 
 // Takes an array of ElevationResult objects
 // and plots the elevation profile on a Visualization API ColumnChart.
@@ -143,7 +124,7 @@ var plotElevation = function(results, status) {
     legend: 'none',
     titleY: 'Elevation (m)'
   });
-  
+
   //culculate the dificulty
   calcDifficulty(elevations);
 };
