@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="y">
   <head>
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
     <meta charset="utf-8">
@@ -8,14 +8,12 @@
     <script src="https://www.google.com/jsapi"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAAaL8lVGF97jWDNHRyLex7RFOQJAWoGUA"></script>
     <script src="http://code.jquery.com/jquery-2.1.1.js"></script>
-    <!-- <script src="https://www.googleapis.com/geolocation/v1/geolocate?v=3.exp"></script> -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
     <link rel="stylesheet" src="styles.css">
     <script src="map.js"></script>
   </head>
 
-    <!-- <script src="https://www.googleapis.com/geolocation/v1/geolocate?v=3.exp"></script> -->
   <body>
   <!-- Navgation bar -->
     <nav class="navbar navbar-default" id="nav-top" role="navigation">
@@ -31,21 +29,18 @@
         </ul>
       </div>
     </nav>
-<!-- Button for generate route and save route -->
-    <div class="text-center">
-      <div class="btn-toolbar">
-        <button type="button" class="btn btn-primary btn-1" id="gen-route">Generate Route</button> 
-        <button type="button" class="btn btn-primary btn-2 save_path" id="save-route">Save Path</button> 
-      </div>
-    </div>
-  
+    <!-- the ng-view directive is where our templates will be loaded into when naviagted to -->
+    <div ng-controller='RunningRouteCtrl'></div>
+    <div ng-view></div>
+    <!-- inject:vendor:js -->
+    <script src="../../bower_components/angular/angular.js"></script>
+    <script src="../../bower_components/angular-route/angular-route.js"></script>
+    <!-- endinject -->
+    <!-- inject:js -->
+    <script src="runningroute/runningroute.js"></script>
+    <script src="runningroute/runningroute-controller.js"></script>
+    <script src="app.js"></script>
+    <!-- endinject -->
 
-<!-- Display map -->
-    <div id="map-canvas"></div>
-    <div id="directionsPanel">
-      <p>Total Distance: <span id="total"></span></p>
-      <p>Difficulty: <span class="difficulty"></span></p>
-    <div id="elevation_chart"></div>
-    </div>
   </body>
 </html>

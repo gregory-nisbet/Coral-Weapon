@@ -25,4 +25,12 @@ angular
     $scope.check = function () {
       this.runningroute.isDone = !this.runningroute.isDone;
     };
+
+    $scope.generateRoute = function(){
+
+    };
+
+    $scope.saveRoute = function(){
+
+    };
   });

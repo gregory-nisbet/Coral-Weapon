@@ -1,12 +1,15 @@
-<h3>Todo</h3>
-<ul class="runningroute-list">
-  <li class="runningroute-item" ng-repeat="runningroute in runningroutes" ng-class="{'runningroute-done': runningroute.isDone}">
-    <label><input type="checkbox" ng-click="check()" ng-model="runningroute.isDone"/>&nbsp;{{runningroute.label}}</label>
-  </li>
-  <li class="runningroute-item">
-    <form ng-submit="add()">
-      <input type="text" placeholder="New item..." ng-model="label"/>
-      <button type="submit" ng-disabled="posting || !label">Add</button>
-    </form>
-  </li>
-</ul>
+<!-- Button for generate route and save route -->
+    <div class="text-center">
+      <div class="btn-toolbar">
+        <button type="button" class="btn btn-primary btn-1" id="gen-route" ng-click="generateRoute()">Generate Route</button> 
+        <button type="button" class="btn btn-primary btn-2 save_path" id="save-route" ng-click="savePath()">Save Path</button> 
+      </div>
+    </div>
+
+<!-- Display map -->
+    <div id="map-canvas"></div>
+    <div id="directionsPanel">
+      <p>Total Distance: <span id="total"></span></p>
+      <p>Difficulty: <span class="difficulty"></span></p>
+    <div id="elevation_chart"></div>
+    </div>
