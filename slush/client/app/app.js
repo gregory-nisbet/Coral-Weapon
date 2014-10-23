@@ -1,16 +1,16 @@
 
 angular.module('y', [
   'ngRoute',
-  'y.todo'
+  'y.runningroute'
 ])
 .config(function ($routeProvider) {
   'use strict';
   $routeProvider
-    .when('/todo', {
-      controller: 'TodoCtrl',
-      templateUrl: '/y/todo/todo.html'
+    .when('/runningroute', {
+      controller: 'RunningRouteCtrl',
+      templateUrl: '/y/runningroute/runningroute.html'
     })
     .otherwise({
-      redirectTo: '/todo'
+      redirectTo: '/runningroute'
     });
 });
