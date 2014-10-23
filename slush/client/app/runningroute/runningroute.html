@@ -1,0 +1,12 @@
+<h3>Todo</h3>
+<ul class="runningroute-list">
+  <li class="runningroute-item" ng-repeat="runningroute in runningroutes" ng-class="{'runningroute-done': runningroute.isDone}">
+    <label><input type="checkbox" ng-click="check()" ng-model="runningroute.isDone"/>&nbsp;{{runningroute.label}}</label>
+  </li>
+  <li class="runningroute-item">
+    <form ng-submit="add()">
+      <input type="text" placeholder="New item..." ng-model="label"/>
+      <button type="submit" ng-disabled="posting || !label">Add</button>
+    </form>
+  </li>
+</ul>
