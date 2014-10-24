@@ -1,6 +1,7 @@
 
 angular.module('y', [
   'ngRoute',
+  'y.newRoute',
   'y.runningroute'
 ])
 .config(function ($routeProvider) {
