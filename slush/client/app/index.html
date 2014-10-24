@@ -31,20 +31,29 @@
         </ul>
       </div>
     </nav>
-    <!-- the ng-view directive is where our templates will be loaded into when naviagted to -->
-    <div ng-controller='RunningRouteCtrl'></div>
-    <div ng-view></div>
-    <!-- inject:vendor:js -->
-    <script src="../../bower_components/angular/angular.js"></script>
-    <script src="../../bower_components/angular-route/angular-route.js"></script>
-    <!-- endinject -->
-    <!-- inject:js -->
-    <script src="newRoute/newRoute.js"></script>
-    <script src="newRoute/newRoute-controller.js"></script>
-    <script src="runningroute/runningroute.js"></script>
-    <script src="runningroute/runningroute-controller.js"></script>
-    <script src="app.js"></script>
-    <!-- endinject -->
 
+    <!-- Display map -->
+    <div id="map-canvas"></div>
+    <div id="directionsPanel">
+      <div class="info">
+        <p>Total Distance: <span id="total"></span></p>
+        <p>Difficulty: <span class="difficulty"></span></p>
+        <div id="elevation_chart"></div>
+      </div>
+      <!-- the ng-view directive is where our templates will be loaded into when naviagted to -->
+      <div ng-view></div>
+        <!-- inject:vendor:js -->
+        <script src="../../bower_components/angular/angular.js"></script>
+        <script src="../../bower_components/angular-route/angular-route.js"></script>
+        <!-- endinject -->
+        <!-- inject:js -->
+        <script src="newRoute/newRoute.js"></script>
+        <script src="newRoute/newRoute-controller.js"></script>
+        <script src="runningroute/runningroute.js"></script>
+        <script src="runningroute/runningroute-controller.js"></script>
+        <script src="app.js"></script>
+        <!-- endinject -->
+      </div>
+    </div>
   </body>
 </html>
