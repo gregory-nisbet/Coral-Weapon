@@ -21,7 +21,7 @@ html, body, #map-canvas {
   font-size: 40px;
 }
 
-#team {
+.navbar-nav {
   color: black;
   padding-top: 5px;
   font-size: 20px;
