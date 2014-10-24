@@ -1,15 +1,25 @@
 <!-- Button for generate route and save route -->
-    <div class="text-center">
-      <div class="btn-toolbar">
-        <button type="button" class="btn btn-primary btn-1" id="gen-route" ng-click="generateRoute()">Generate Route</button> 
-        <button type="button" class="btn btn-primary btn-2 save_path" id="save-route" ng-click="savePath()">Save Path</button> 
-      </div>
-    </div>
-
-<!-- Display map -->
-    <div id="map-canvas"></div>
-    <div id="directionsPanel">
-      <p>Total Distance: <span id="total"></span></p>
-      <p>Difficulty: <span class="difficulty"></span></p>
-    <div id="elevation_chart"></div>
-    </div>
+<div id="container">
+  <form name="newRoute" ng-sibmit="generateRoute()">
+    <span>Select Distance: </span><br>
+    <select name="distance" ng-model="newRoute.distance">
+      <option value="1">1 mile</option>
+      <option value="3">3 miles</option>
+      <option value="5">5 miles</option>
+      <option value="10">10 miles</option>
+    </select><br>
+    <span>Select Difficulty: </span><br>
+    <select name="difficulty" ng-model="newRoute.difficulty">
+      <option value="5">level 5</option>
+      <option value="10">level 10</option>
+      <option value="15">level 15</option>
+      <option value="20">level 20</option>
+    </select><br>
+    <button type="submit" class="btn btn-primary btn-1" value="newRoute">Create a new route</button>
+  </form>
+  <form name="saveRoute" ng-submit="saveRoute()" novalidate>
+    <span>The route name: </span><br>
+    <input name="title" type="text" ng-model="saveRoute.title" required><br>
+    <button type="submit" class="btn btn-primary btn-2 save_path" value="savePath" ng-disabled="saveRoute.$invalid">Save this route</button>
+  </form>
+</div>
