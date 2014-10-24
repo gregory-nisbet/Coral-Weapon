@@ -6,11 +6,15 @@ angular.module('y', [
 .config(function ($routeProvider) {
   'use strict';
   $routeProvider
-    .when('/runningroute', {
+    .when('/newRoute', {
+      controller: 'newRouteCtrl',
+      templateUrl: '/y/newRoute/newRoute.html'
+    })
+    .when('/savedRoutes', {
       controller: 'RunningRouteCtrl',
       templateUrl: '/y/runningroute/runningroute.html'
     })
     .otherwise({
-      redirectTo: '/runningroute'
+      redirectTo: '/savedRoutes'
     });
 });
