@@ -4,16 +4,46 @@ html, body, #map-canvas {
   padding: 0px;
 }
 
+.map{
+  float: left;
+  width: 65%; 
+  height: 80%;
+  padding: 20px;
+}
+
 #map-canvas{
-  float:left;
-  width:70%; 
-  height:100%;
+  border: 5px solid #919191;
+  border-radius: 10px;
 }
 
 #directionsPanel{
   float:right;
-  width:30%;
-  height: 100%;
+  width:35%;
+  height: 80%;
+  padding: 20px 20px 20px 0px;
+}
+
+.info{
+  text-align: center;
+}
+
+.info-dis, .info-dif{
+ display:inline-block;
+ margin: 0 20px;
+}
+
+.info-ele{
+  margin-top: 20px;
+}
+
+.info > div > p{
+  font-size: 18px;
+  margin: 0;
+}
+
+.info span{
+  font-size: 40px;
+  font-weight: bold;
 }
 
 #title {
@@ -44,7 +74,18 @@ html, body, #map-canvas {
   margin-left: 15px; 
 }
 
-.active>a {
+.active > a{
   background-color: #e5e5e5;
   box-shadow: inset 0 3px 8px rgba(0,0,0,0.125);
+}
+
+.shadow{
+  text-shadow: 
+    1px 0px 1px #ccc, 0px 1px 1px #eee, 
+    2px 1px 1px #ccc, 1px 2px 1px #eee,
+    3px 2px 1px #ccc, 2px 3px 1px #eee,
+    4px 3px 1px #ccc, 3px 4px 1px #eee,
+    5px 4px 1px #ccc, 4px 5px 1px #eee,
+    6px 5px 1px #ccc, 5px 6px 1px #eee,
+    7px 6px 1px #ccc;
 }

@@ -33,12 +33,23 @@
     </nav>
 
     <!-- Display map -->
-    <div id="map-canvas"></div>
+    <div class="map">
+      <div id="map-canvas"></div>
+    </div>
     <div id="directionsPanel">
-      <div class="info">
-        <p>Total Distance: <span id="total"></span></p>
-        <p>Difficulty: <span class="difficulty"></span></p>
-        <div id="elevation_chart"></div>
+      <div class="info shadow">
+        <div class="info-dis">
+          <p>Total Distance</p>
+        <p><span id="total"></span> km</p>
+        </div>
+        <div class="info-dif">
+          <p>Difficulty Level</p>
+        <span class="difficulty"></span>
+        </div>
+        <div class="info-ele">
+          <p>Elevation Chart</p>
+          <div id="elevation_chart"></div>
+        </div>
       </div>
       <!-- the ng-view directive is where our templates will be loaded into when naviagted to -->
       <div ng-view></div>
