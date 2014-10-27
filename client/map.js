@@ -1,6 +1,4 @@
-var rendererOptions = {
-  draggable: true
-};
+var rendererOptions = { draggable: true };
 var directionsDisplay = new google.maps.DirectionsRenderer(rendererOptions);
 var directionsService = new google.maps.DirectionsService();
 var elevator;
@@ -18,15 +16,12 @@ var res;
 // Load the Visualization API and the columnchart package.
 google.load('visualization', '1', {packages: ['columnchart']});
 
-var savePath = function(){
-  //console.log('saved the path! ' + path);
-};
-
 var loadMap = function(runningRoute){
   var rr = fix(runningRoute);
   directionsDisplay.setDirections(rr);
 };
 
+//fixes the saved route object when user clicks on the saved route
 var fix = function(obj){
   var bounds = obj.routes[0].bounds;
   var sw = new google.maps.LatLng(parseFloat(bounds.Ea.j), parseFloat(bounds.va.j));
@@ -59,8 +54,6 @@ var fix = function(obj){
   for(var i = 0; i < op.length; i++){
     op[i] = new google.maps.LatLng(parseFloat(op[i].k), parseFloat(op[i].B));
   }
-  //console.log(steps[0].path[0].k);
-  //console.log(typeof steps[0].path[0].k);
   return obj;
 };
 
@@ -79,20 +72,12 @@ var setupMap = function(content){
 
   map.setCenter(currentPosition);
   directionsDisplay.setMap(map);
-  //directionsDisplay.setPanel(document.getElementById('directionsPanel'));
 
   google.maps.event.addListener(directionsDisplay, 'directions_changed', function() {
-
     res = directionsDisplay.getDirections();
-    //res.j = true;
-    //console.log(res);
     computeTotalDistance(res);
     path = res.routes[0].overview_path;
     drawChart(res);
-    //console.log("directionsDisplay.getDirections():");
-    //console.log(res);
-    // console.log("fix(JSON.parse(JSON.stringify(directionsDisplay.getDirections()))):");
-    // console.log(fix(JSON.parse(JSON.stringify(directionsDisplay.getDirections()))));
   });
   elevator = new google.maps.ElevationService();
   calcRoute();
@@ -209,10 +194,6 @@ function drawChart(response) {
   // Create a new chart in the elevation_chart DIV.
   chart = new google.visualization.ColumnChart(document.getElementById('elevation_chart'));
 
-  //console.log(response);
-
-  var path = response.routes[0].overview_path;
-
   // Create a PathElevationRequest object using this array.
   // Ask for 256 samples along that path.
   var pathRequest = {
@@ -235,7 +216,9 @@ var computeTotalDistance = function(result) {
 };
 
 google.maps.event.addDomListener(window, 'load', initialize);
+
 $(document).ready(function(){
+  //toggle active class in navbar, when one of the buttons are clicked. 
   $('.navbar-nav').on('click', 'li', function(){
     $('.navbar-nav').children().removeClass('active');
     $(this).addClass('active');
