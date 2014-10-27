@@ -73,7 +73,7 @@ html, body, #map-canvas {
 }
 
 .btn-2 {
-  margin-left: 15px; 
+  margin-right: 15px; 
 }
 
 .active > a{
@@ -90,4 +90,8 @@ html, body, #map-canvas {
     5px 4px 1px #ccc, 4px 5px 1px #eee,
     6px 5px 1px #ccc, 5px 6px 1px #eee,
     7px 6px 1px #ccc;
+}
+
+.save-route{
+  margin-top: 20px; 
 }
