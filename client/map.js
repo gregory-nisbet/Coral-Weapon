@@ -116,7 +116,7 @@ var calcDifficulty = function(elevations){
   };
   difficulty =Math.round(difficulty / 1000) / 100;
 
-  $('.difficulty').html('level ' + difficulty);
+  $('.difficulty').html(difficulty);
 };
 
 var initialize = function() {
@@ -231,7 +231,7 @@ var computeTotalDistance = function(result) {
     total += myroute.legs[i].distance.value;
   }
   total = total / 1000.0;
-  document.getElementById('total').innerHTML = total + ' km';
+  document.getElementById('total').innerHTML = total;
 };
 
 google.maps.event.addDomListener(window, 'load', initialize);
