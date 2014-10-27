@@ -218,6 +218,8 @@ var computeTotalDistance = function(result) {
 google.maps.event.addDomListener(window, 'load', initialize);
 
 $(document).ready(function(){
+  //add savedRoute link active class when loaded 
+  $('.navbar-nav li:nth-child(2)').addClass('active');
   //toggle active class in navbar, when one of the buttons are clicked. 
   $('.navbar-nav').on('click', 'li', function(){
     $('.navbar-nav').children().removeClass('active');
