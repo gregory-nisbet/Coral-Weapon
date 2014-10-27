@@ -6,7 +6,7 @@ angular.module('shortly.newRoute', [])
   $scope.addRunningRoute = function () {
     $scope.loading = true;
     $scope.runningRoute.runningRoute = res;
-    $scope.runningRoute.rating = 0;
+    $scope.runningRoute.rating = $('.difficulty').text();
     RunningRoutes.addRunningRoute($scope.runningRoute)
       .then(function () {
         $scope.loading = false;
