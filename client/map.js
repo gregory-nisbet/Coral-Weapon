@@ -235,3 +235,10 @@ var computeTotalDistance = function(result) {
 };
 
 google.maps.event.addDomListener(window, 'load', initialize);
+$(document).ready(function(){
+  $('.navbar-nav').on('click', 'li', function(){
+    $('.navbar-nav').children().removeClass('active');
+    $(this).addClass('active');
+  });
+});
+
