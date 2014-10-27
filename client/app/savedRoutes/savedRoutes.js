@@ -1,23 +1,19 @@
 angular.module('shortly.savedRoutes', [])
 
-.controller('SavedRoutesController', function ($scope, runningRoutes, $window) { // $log) {
+.controller('SavedRoutesController', function ($scope, runningRoutes, $window, RunningRoutes) { // $log) {
 //                'savedRoutesCtrl', function ($scope, $window, $http)
-  // Your code here
-  /* START SOLUTION */
 
   $scope.data = {runningRoutes: runningRoutes};
-  //$scope.data = {runningRoutes: runningRoutes};
-  // $scope.getLinks = function () {
-  //   Links.getAll()
-  //     .then(function (links) {
-  //       $scope.data.links = links;
-  //     })
-  //     .catch(function (error) {
-  //       console.error(error);
-  //     });
-  // };
-  // $scope.getLinks();
-  /* END SOLUTION */
+  $scope.getRunningRoutes = function () {
+    RunningRoutes.getAll()
+      .then(function (runningRoutes) {
+        $scope.data.runningRoutes = runningRoutes;
+      })
+      .catch(function (error) {
+        console.error(error);
+      });
+  };
+  $scope.getRunningRoutes();
 
   $scope.savedRoutes = JSON.parse($window.localStorage.getItem('savedRoutes') || '[]');
   $scope.$watch('savedRoutes', function (newRunningRoutes, oldRunningRoutes) {

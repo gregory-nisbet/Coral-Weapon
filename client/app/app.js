@@ -9,35 +9,7 @@ angular.module('shortly', [
 //  'ngFx'
 ])
 .config(function($stateProvider, $urlRouterProvider, $httpProvider, $compileProvider) {
-  // $routeProvider
-  //   .when('/signin', {
-  //     templateUrl: 'app/auth/signin.html',
-  //     controller: 'AuthController'
-  //   })
-  //   .when('/signup', {
-  //     templateUrl: 'app/auth/signup.html',
-  //     controller: 'AuthController'
-  //   })
-  //   // Your code here
-  //   /* START SOLUTION */
-  //   .when('/links', {
-  //     templateUrl: 'app/links/links.html',
-  //     controller: 'LinksController',
-  //     authenticate: true,
-  //     resolve: {
-  //       links: function(Links) {
-  //         return Links.getAll();
-  //       }
-  //     }
-  //   })
-  //   .when('/shorten', {
-  //     templateUrl: 'app/shorten/shorten.html',
-  //     controller: 'ShortenController',
-  //     authenticate: true,
-  //   })
-  //   .otherwise({
-  //     redirectTo: '/links'
-  //   });
+
   $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|javascript):/);
 
   $urlRouterProvider.otherwise('/savedRoutes');
@@ -68,10 +40,10 @@ angular.module('shortly', [
         }
       }
     })
-    .state('savedRoutes.child', {
-      url: '/child',
-      template: '<h1>CHILD</h1>'
-    })
+    // .state('savedRoutes.child', {
+    //   url: '/child',
+    //   template: '<h1>CHILD</h1>'
+    // })
     .state('newRoute', {
       url: '/newRoute',
       controller: 'NewRouteController',
