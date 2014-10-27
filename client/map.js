@@ -1,6 +1,4 @@
-var rendererOptions = {
-  draggable: true
-};
+var rendererOptions = { draggable: true };
 var directionsDisplay = new google.maps.DirectionsRenderer(rendererOptions);
 var directionsService = new google.maps.DirectionsService();
 var elevator;
@@ -18,51 +16,7 @@ var res;
 // Load the Visualization API and the columnchart package.
 google.load('visualization', '1', {packages: ['columnchart']});
 
-var savePath = function(){
-  //console.log('saved the path! ' + path);
-};
-
-var loadMap = function(runningRoute){
-  var rr = fix(runningRoute);
-  directionsDisplay.setDirections(rr);
-};
-
-var fix = function(obj){
-  var bounds = obj.routes[0].bounds;
-  var sw = new google.maps.LatLng(parseFloat(bounds.Ea.j), parseFloat(bounds.va.j));
-  var ne = new google.maps.LatLng(parseFloat(bounds.Ea.k), parseFloat(bounds.va.k));
-  obj.routes[0].bounds = new google.maps.LatLngBounds(sw, ne);
-  var legs = obj.routes[0].legs;
-  for(var kk = 0; kk < legs.length; kk++){
-    var steps = obj.routes[0].legs[kk].steps;
-    var waypoint = legs[kk].via_waypoint;
-    var waypoints = legs[kk].via_waypoints;
-    for(var j = 0; j < waypoints.length; j++){
-      waypoint[j].location = new google.maps.LatLng(parseFloat(waypoint[j].location.k), parseFloat(waypoint[j].location.B));
-      waypoint[j].location = new google.maps.LatLng(parseFloat(waypoint[j].location.k), parseFloat(waypoint[j].location.B));
-      waypoints[j] = new google.maps.LatLng(parseFloat(waypoints[j].k), parseFloat(waypoints[j].B));
-      waypoints[j] = new google.maps.LatLng(parseFloat(waypoints[j].k), parseFloat(waypoints[j].B));
-
-    }
-    for(var j = 0; j < steps.length; j++){
-      var path = steps[j].path;
-      var lat_lngs = steps[j].lat_lngs;
-      for(var i = 0; i < path.length; i++){
-          path[i] = new google.maps.LatLng(parseFloat(path[i].k), parseFloat(path[i].B));
-          lat_lngs[i] = new google.maps.LatLng(parseFloat(lat_lngs[i].k), parseFloat(lat_lngs[i].B));
-      }
-    }
-    legs[kk].start_location = new google.maps.LatLng(parseFloat(legs[kk].start_location.k), parseFloat(legs[kk].start_location.B));
-    legs[kk].end_location = new google.maps.LatLng(parseFloat(legs[kk].end_location.k), parseFloat(legs[kk].end_location.B));
-  }
-  var op = obj.routes[0].overview_path;
-  for(var i = 0; i < op.length; i++){
-    op[i] = new google.maps.LatLng(parseFloat(op[i].k), parseFloat(op[i].B));
-  }
-  //console.log(steps[0].path[0].k);
-  //console.log(typeof steps[0].path[0].k);
-  return obj;
-};
+//=================FUNCTIONS TO USE WHEN INITIALIZE=======================
 
 var setupMap = function(content){
   currentPosition = new google.maps.LatLng( currentLatitude, currentLongitude );
@@ -79,23 +33,52 @@ var setupMap = function(content){
 
   map.setCenter(currentPosition);
   directionsDisplay.setMap(map);
-  //directionsDisplay.setPanel(document.getElementById('directionsPanel'));
-
-  google.maps.event.addListener(directionsDisplay, 'directions_changed', function() {
-
-    res = directionsDisplay.getDirections();
-    //res.j = true;
-    //console.log(res);
-    computeTotalDistance(res);
-    path = res.routes[0].overview_path;
-    drawChart(res);
-    //console.log("directionsDisplay.getDirections():");
-    //console.log(res);
-    // console.log("fix(JSON.parse(JSON.stringify(directionsDisplay.getDirections()))):");
-    // console.log(fix(JSON.parse(JSON.stringify(directionsDisplay.getDirections()))));
-  });
   elevator = new google.maps.ElevationService();
   calcRoute();
+  
+  //add listner for the route change
+  google.maps.event.addListener(directionsDisplay, 'directions_changed', function() {
+    res = directionsDisplay.getDirections();
+    path = res.routes[0].overview_path;
+    computeTotalDistance(res);
+    drawChart(res);
+  });
+};
+
+var getRequest = function(currentPo, destPo, wayPtArr){
+  var request = {
+    origin: currentPo,
+    destination: destPo,
+    waypoints: wayPtArr,
+    optimizeWaypoints: true,
+    travelMode: google.maps.TravelMode.WALKING,
+    avoidHighways: true,
+    avoidTolls: true
+  }
+  return request;
+};
+
+var calcRoute = function() {
+  var destination = new google.maps.LatLng(currentLatitude, currentLongitude+0.02);
+  var request = getRequest(currentPosition, destination);
+  directionsService.route(request, function(response, status) {
+    if (status == google.maps.DirectionsStatus.OK) {
+      directionsDisplay.setDirections(response);
+      drawChart(response);
+    }
+  });
+};
+
+// ====================TO DISPLAY INFO DIV==========================
+
+var computeTotalDistance = function(result) {
+  var total = 0;
+  var myroute = result.routes[0];
+  for (var i = 0; i < myroute.legs.length; i++) {
+    total += myroute.legs[i].distance.value;
+  }
+  total = total / 1000.0;
+  $('#total').html(total);
 };
 
 var calcDifficulty = function(elevations){
@@ -119,26 +102,19 @@ var calcDifficulty = function(elevations){
   $('.difficulty').html(difficulty);
 };
 
-var initialize = function() {
+function drawChart(response) {
+  // Create a new chart in the elevation_chart DIV.
+  chart = new google.visualization.ColumnChart(document.getElementById('elevation_chart'));
 
-  map = new google.maps.Map(document.getElementById('map-canvas'));
-
-  if(navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(function(position) {
-      currentLatitude = position.coords.latitude;
-      currentLongitude = position.coords.longitude;
-      setupMap();
-    }, function() {
-      //if getting geolocation info failed.
-      content = 'Error: The Geolocation service failed.';
-      setupMap(content);
-    });
-
-  }else{
-    // Browser doesn't support Geolocation
-    content = 'Error: Your browser doesn\'t support geolocation.';
-    setupMap(content);
+  // Create a PathElevationRequest object using this array.
+  // Ask for 256 samples along that path.
+  var pathRequest = {
+    'path': path,
+    'samples': 256
   }
+
+  // Initiate the path request.
+  elevator.getElevationAlongPath(pathRequest, plotElevation);
 };
 
 // Takes an array of ElevationResult objects
@@ -179,63 +155,79 @@ var plotElevation = function(results, status) {
   calcDifficulty(elevations);
 };
 
-var getRequest = function(currentPo, destPo, wayPtArr){
-  var request = {
-    origin: currentPo,
-    destination: destPo,
-    waypoints: wayPtArr,
-    optimizeWaypoints: true,
-    travelMode: google.maps.TravelMode.WALKING,
-    avoidHighways: true,
-    avoidTolls: true
-  }
+// =======================TO SHOW THE SAVED ROUTES=============================
 
-  return request;
-}
+var loadMap = function(runningRoute){
+  var rr = fix(runningRoute);
+  directionsDisplay.setDirections(rr);
+};
 
-var calcRoute = function() {
-  var destination = new google.maps.LatLng(currentLatitude, currentLongitude+0.02);
-  var request = getRequest(currentPosition, destination);
-  directionsService.route(request, function(response, status) {
-    if (status == google.maps.DirectionsStatus.OK) {
-      directionsDisplay.setDirections(response);
-      drawChart(response);
+//fixes the saved route object when user clicks on the saved route
+var fix = function(obj){
+  var bounds = obj.routes[0].bounds;
+  var sw = new google.maps.LatLng(parseFloat(bounds.Ea.j), parseFloat(bounds.va.j));
+  var ne = new google.maps.LatLng(parseFloat(bounds.Ea.k), parseFloat(bounds.va.k));
+  obj.routes[0].bounds = new google.maps.LatLngBounds(sw, ne);
+  var legs = obj.routes[0].legs;
+  for(var kk = 0; kk < legs.length; kk++){
+    var steps = obj.routes[0].legs[kk].steps;
+    var waypoint = legs[kk].via_waypoint;
+    var waypoints = legs[kk].via_waypoints;
+    for(var j = 0; j < waypoints.length; j++){
+      waypoint[j].location = new google.maps.LatLng(parseFloat(waypoint[j].location.k), parseFloat(waypoint[j].location.B));
+      waypoint[j].location = new google.maps.LatLng(parseFloat(waypoint[j].location.k), parseFloat(waypoint[j].location.B));
+      waypoints[j] = new google.maps.LatLng(parseFloat(waypoints[j].k), parseFloat(waypoints[j].B));
+      waypoints[j] = new google.maps.LatLng(parseFloat(waypoints[j].k), parseFloat(waypoints[j].B));
+
     }
-  });
+    for(var j = 0; j < steps.length; j++){
+      var path = steps[j].path;
+      var lat_lngs = steps[j].lat_lngs;
+      for(var i = 0; i < path.length; i++){
+          path[i] = new google.maps.LatLng(parseFloat(path[i].k), parseFloat(path[i].B));
+          lat_lngs[i] = new google.maps.LatLng(parseFloat(lat_lngs[i].k), parseFloat(lat_lngs[i].B));
+      }
+    }
+    legs[kk].start_location = new google.maps.LatLng(parseFloat(legs[kk].start_location.k), parseFloat(legs[kk].start_location.B));
+    legs[kk].end_location = new google.maps.LatLng(parseFloat(legs[kk].end_location.k), parseFloat(legs[kk].end_location.B));
+  }
+  var op = obj.routes[0].overview_path;
+  for(var i = 0; i < op.length; i++){
+    op[i] = new google.maps.LatLng(parseFloat(op[i].k), parseFloat(op[i].B));
+  }
+  return obj;
 };
 
-function drawChart(response) {
-
-  // Create a new chart in the elevation_chart DIV.
-  chart = new google.visualization.ColumnChart(document.getElementById('elevation_chart'));
-
-  //console.log(response);
-
-  var path = response.routes[0].overview_path;
-
-  // Create a PathElevationRequest object using this array.
-  // Ask for 256 samples along that path.
-  var pathRequest = {
-    'path': path,
-    'samples': 256
-  }
-
-  // Initiate the path request.
-  elevator.getElevationAlongPath(pathRequest, plotElevation);
-}
-
-var computeTotalDistance = function(result) {
-  var total = 0;
-  var myroute = result.routes[0];
-  for (var i = 0; i < myroute.legs.length; i++) {
-    total += myroute.legs[i].distance.value;
-  }
-  total = total / 1000.0;
-  document.getElementById('total').innerHTML = total;
-};
+// ===========TO INITIALIZE WHEN THE WINDOW IS LOADED===============
 
 google.maps.event.addDomListener(window, 'load', initialize);
+
+var initialize = function() {
+  map = new google.maps.Map(document.getElementById('map-canvas'));
+
+  if(navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(function(position) {
+      currentLatitude = position.coords.latitude;
+      currentLongitude = position.coords.longitude;
+      setupMap();
+    }, function() {
+      //if getting geolocation info failed.
+      content = 'Error: The Geolocation service failed.';
+      setupMap(content);
+    });
+  }else{
+    // Browser doesn't support Geolocation
+    content = 'Error: Your browser doesn\'t support geolocation.';
+    setupMap(content);
+  }
+};
+
+// ============TO SHOW THE ACTIVE BUTTON IN NAV BAR ===================
+
 $(document).ready(function(){
+  //add savedRoute link active class when loaded 
+  $('.navbar-nav li:nth-child(2)').addClass('active');
+  //toggle active class in navbar, when one of the buttons are clicked. 
   $('.navbar-nav').on('click', 'li', function(){
     $('.navbar-nav').children().removeClass('active');
     $(this).addClass('active');
