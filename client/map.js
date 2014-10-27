@@ -16,6 +16,8 @@ var res;
 // Load the Visualization API and the columnchart package.
 google.load('visualization', '1', {packages: ['columnchart']});
 
+//=================FUNCTIONS TO USE WHEN INITIALIZE=======================
+
 var setupMap = function(content){
   currentPosition = new google.maps.LatLng( currentLatitude, currentLongitude );
 
@@ -43,6 +45,30 @@ var setupMap = function(content){
   });
 };
 
+var getRequest = function(currentPo, destPo, wayPtArr){
+  var request = {
+    origin: currentPo,
+    destination: destPo,
+    waypoints: wayPtArr,
+    optimizeWaypoints: true,
+    travelMode: google.maps.TravelMode.WALKING,
+    avoidHighways: true,
+    avoidTolls: true
+  }
+  return request;
+};
+
+var calcRoute = function() {
+  var destination = new google.maps.LatLng(currentLatitude, currentLongitude+0.02);
+  var request = getRequest(currentPosition, destination);
+  directionsService.route(request, function(response, status) {
+    if (status == google.maps.DirectionsStatus.OK) {
+      directionsDisplay.setDirections(response);
+      drawChart(response);
+    }
+  });
+};
+
 // ====================TO DISPLAY INFO DIV==========================
 
 var computeTotalDistance = function(result) {
@@ -52,7 +78,7 @@ var computeTotalDistance = function(result) {
     total += myroute.legs[i].distance.value;
   }
   total = total / 1000.0;
-  document.getElementById('total').innerHTML = total;
+  $('#total').html(total);
 };
 
 var calcDifficulty = function(elevations){
@@ -77,7 +103,6 @@ var calcDifficulty = function(elevations){
 };
 
 function drawChart(response) {
-  
   // Create a new chart in the elevation_chart DIV.
   chart = new google.visualization.ColumnChart(document.getElementById('elevation_chart'));
 
@@ -90,7 +115,7 @@ function drawChart(response) {
 
   // Initiate the path request.
   elevator.getElevationAlongPath(pathRequest, plotElevation);
-}
+};
 
 // Takes an array of ElevationResult objects
 // and plots the elevation profile on a Visualization API ColumnChart.
@@ -128,30 +153,6 @@ var plotElevation = function(results, status) {
 
   //culculate the dificulty
   calcDifficulty(elevations);
-};
-
-var getRequest = function(currentPo, destPo, wayPtArr){
-  var request = {
-    origin: currentPo,
-    destination: destPo,
-    waypoints: wayPtArr,
-    optimizeWaypoints: true,
-    travelMode: google.maps.TravelMode.WALKING,
-    avoidHighways: true,
-    avoidTolls: true
-  }
-  return request;
-};
-
-var calcRoute = function() {
-  var destination = new google.maps.LatLng(currentLatitude, currentLongitude+0.02);
-  var request = getRequest(currentPosition, destination);
-  directionsService.route(request, function(response, status) {
-    if (status == google.maps.DirectionsStatus.OK) {
-      directionsDisplay.setDirections(response);
-      drawChart(response);
-    }
-  });
 };
 
 // =======================TO SHOW THE SAVED ROUTES=============================
