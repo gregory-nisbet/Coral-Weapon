@@ -1,0 +1,8 @@
+<div id='container'>
+
+</div>
+<div class="runningRoutes">
+    <shortened-running-route running-route="runningRoute" class="fx-zoom-up fx-speed-300 fx-easing-back" ng-repeat="runningRoute in data.runningRoutes | filter:search | orderBy:'created_at'">
+    </shortened-running-route>
+  <div ui-view></div>
+</div>

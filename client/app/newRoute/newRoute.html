@@ -1,0 +1,55 @@
+<!-- Button for generate route and save route -->
+<!-- <div id="container">
+  <form name="newRoute" ng-submit="generateRoute()">
+    <span>Select Distance: </span>
+    <select name="distance" ng-model="newRoute.distance">
+      <option value="1">1 mile</option>
+      <option value="3">3 miles</option>
+      <option value="5">5 miles</option>
+      <option value="10">10 miles</option>
+    </select><br>
+    <span>Select Difficulty: </span>
+    <select name="difficulty" ng-model="newRoute.difficulty">
+      <option value="5">level 5</option>
+      <option value="10">level 10</option>
+      <option value="15">level 15</option>
+      <option value="20">level 20</option>
+    </select><br>
+    <button type="submit" class="btn btn-primary btn-1" value="newRoute">Create a new route</button>
+  </form>
+  <form name="shortlyForm" ng-submit="addRunningRoute()">
+    <span>The route name: </span><br>
+    <input name="name" type="text"
+      ng-model="runningRoute.name"
+      placeholder="route name" required><br>
+    <button type="submit" value="NewRoute">Save this route</button>
+  </form>
+</div> -->
+
+<!-- Button for generate route and save route -->
+<div class="new-route col-md-12">
+  <form class= "form-horizontal" role="form" name="newRoute" ng-submit="generateRoute()">
+      <label>Select Distance:</label>
+      <select class="form-control" name="distance" ng-model="newRoute.distance">
+        <option value="1">1 mile</option>
+        <option value="3">3 miles</option>
+        <option value="5">5 miles</option>
+        <option value="10">10 miles</option>
+      </select><br>
+    <label>Select Difficulty: </label>
+    <select class="form-control" name="difficulty" ng-model="newRoute.difficulty">
+      <option value="5">level 5</option>
+      <option value="10">level 10</option>
+      <option value="15">level 15</option>
+      <option value="20">level 20</option>
+    </select><br>
+  <button type="submit" class="btn btn-primary btn-1" value="newRoute">Create a new route</button>
+  </form>
+</div>
+<div class="save-route col-md-12">
+  <form class= "form-horizontal" role="form" name="nameRoute" ng-submit="addRunningRoute()">
+    <label>Create a route: </label><br>
+    <input class="form-control" name="name" type="text" ng-model="runningRoute.name" required><br>
+    <button type="submit" class="btn btn-primary btn-2 save_path" value="NewRoute">Save this route</button>
+  </form>
+</div>
