@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="shortly">
+  <head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <title>Coral Weapon</title>
+    <link rel="stylesheet" type="text/css" href="styles/style.css" />
+    <script src="https://www.google.com/jsapi"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAAaL8lVGF97jWDNHRyLex7RFOQJAWoGUA"></script>
+    <script src="http://code.jquery.com/jquery-2.1.1.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+    <script src="map.js"></script>
+  </head>
+
+  <body>
+    <!-- Navgation bar -->
+    <nav class="navbar navbar-default" id="nav-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <a class="navbar-brand" id="title" href="#" font-color="">iRunner</a>
+        </div>
+        <ul class="nav navbar-nav">
+          <li><a href="#/newRoute">New Route</a></li>
+          <li><a href="#/savedRoutes">Saved Routes</a></li>
+          <!-- <li><a href="#/team">Team</a></li> -->
+        </ul>
+        <!-- <ul class="nav nav-pills navbar-right" id="sign-in">
+          <li class="active"><a href="#">Sign In</a></li>
+        </ul> -->
+      </div>
+    </nav>
+
+    <!-- Display Map -->
+    <div class="map">
+      <div id="map-canvas"></div>
+    </div>
+
+    <!-- Display path info -->
+    <div id="directionsPanel">
+      <div class="info shadow">
+        <div class="info-dis">
+          <p>Total Distance</p>
+          <p>
+            <span id="total"></span> km
+          </p>
+        </div>
+        <div class="info-dif">
+          <p>Difficulty Level</p>
+          <span class="difficulty"></span>
+        </div>
+        <div class="info-ele">
+          <p>Elevation Chart</p>
+          <div id="elevation_chart"></div>
+        </div>
+      </div>
+
+
+      <div ui-view></div>
+      <script src="lib/angular/angular.js"></script>
+      <script src="lib/angular-ui-router/release/angular-ui-router.js"></script>
+      <script src="app/auth/auth.js"></script>
+      <script src="app/auth/auth-services.js"></script>
+      <script src="app/team/team.js"></script>
+      <script src="app/savedRoutes/savedRoutes.js"></script>
+      <script src="app/savedRoutes/savedRoutes-services.js"></script>
+      <script src="app/newRoute/newRoute.js"></script>
+      <script src="app/app.js"></script>
+      <script src="map.js"></script>
+    </div>
+  </body>
+</html>
