@@ -14,7 +14,7 @@
   </head>
 
   <body>
-  <!-- Navgation bar -->
+    <!-- Navgation bar -->
     <nav class="navbar navbar-default" id="nav-top" role="navigation">
       <div class="container">
         <div class="navbar-header">
@@ -31,69 +31,42 @@
       </div>
     </nav>
 
-    <!-- Display map -->
-    <!-- <div id="map-canvas"></div>
+    <!-- Display Map -->
+    <div class="map">
+      <div id="map-canvas"></div>
+    </div>
+
+    <!-- Display path info -->
     <div id="directionsPanel">
-      <div class="info">
-        <p>Total Distance: <span id="total"></span></p>
-        <p>Difficulty: <span class="difficulty"></span></p>
-        <div id="elevation_chart"></div>
-      </div> -->
-
-      <div class="map">
-        <div id="map-canvas"></div>
-      </div>
-      <div id="directionsPanel">
-        <div class="info shadow">
-          <div class="info-dis">
-            <p>Total Distance</p>
-          <p><span id="total"></span> km</p>
-          </div>
-          <div class="info-dif">
-            <p>Difficulty Level</p>
-          <span class="difficulty"></span>
-          </div>
-          <div class="info-ele">
-            <p>Elevation Chart</p>
-            <div id="elevation_chart"></div>
-          </div>
+      <div class="info shadow">
+        <div class="info-dis">
+          <p>Total Distance</p>
+          <p>
+            <span id="total"></span> km
+          </p>
         </div>
+        <div class="info-dif">
+          <p>Difficulty Level</p>
+          <span class="difficulty"></span>
+        </div>
+        <div class="info-ele">
+          <p>Elevation Chart</p>
+          <div id="elevation_chart"></div>
+        </div>
+      </div>
 
 
-      <!-- the ng-view directive is where our templates will be loaded into when naviagted to -->
-      <!-- <div ng-view></div> -->
       <div ui-view></div>
-      <!-- inject:vendor:js -->
       <script src="lib/angular/angular.js"></script>
       <script src="lib/angular-ui-router/release/angular-ui-router.js"></script>
       <script src="app/auth/auth.js"></script>
       <script src="app/auth/auth-services.js"></script>
-      <!-- <script src="/angular/angular.js"></script>
-      <script src="/angular-route/angular-route.js"></script> -->
-      <!-- endinject -->
-      <!-- inject:js -->
       <script src="app/team/team.js"></script>
-      <!-- <script src="app/team/team-controller.js"></script> -->
-
       <script src="app/savedRoutes/savedRoutes.js"></script>
       <script src="app/savedRoutes/savedRoutes-services.js"></script>
-
-      <!-- <script src="savedRoutes/savedRoutes.js"></script>
-      <script src="savedRoutes/savedRoutes-service.js"></script> -->
-      <!-- <script src="app/savedRoutes/savedRoutes-controller.js"></script> -->
-
       <script src="app/newRoute/newRoute.js"></script>
-      <!-- <script src="app/newRoute/newRoute-controller.js"></script> -->
-
       <script src="app/app.js"></script>
-
-      <!-- // <script src="newRoute/newRoute.js"></script>
-      // <script src="newRoute/newRoute-controller.js"></script> -->
-
       <script src="map.js"></script>
-      <!-- <script src="app.js"></script> -->
-      <!-- endinject -->
-      </div>
     </div>
   </body>
 </html>
